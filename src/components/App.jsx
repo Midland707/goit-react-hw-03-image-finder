@@ -1,12 +1,24 @@
-export const App = () => {
-  onSubmitForm = () => {};
+import React, { Component } from 'react';
+import { Searchbar } from 'components/Searchbar/Searchbar';
+import { ImageGallery } from 'components/ImageGallery/ImageGallery';
+import { ImageGalleryItem } from 'components/ImageGalleryItem/ImageGalleryItem';
+export class App extends Component {
+  onSubmitForm = eventSubmit => {
+    eventSubmit.preventDefault();
+    console.log(eventSubmit.target);
+  };
 
-  return (
-    <div>
-      <Searchbar onSubmitForm={onSubmitForm} />
-    </div>
-  );
-};
+  render() {
+    return (
+      <div>
+        <Searchbar onSubmitForm={this.onSubmitForm} />
+        <ImageGallery>
+          <ImageGalleryItem />
+        </ImageGallery>
+      </div>
+    );
+  }
+}
 
 // const BASE_URL = 'https://pixabay.com/api/';
 // const key = '32874218-f955783fbc8df841e2f172dbc';
