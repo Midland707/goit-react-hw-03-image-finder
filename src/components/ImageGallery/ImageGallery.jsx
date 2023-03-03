@@ -1,7 +1,7 @@
 // import PropTypes from 'prop-types';
 
 export const ImageGallery = () => (
-  <ul class="gallery">
+  <ul className="gallery">
     {
       /* Набір <li> із зображеннями */
       //   <ImageGalleryItem />

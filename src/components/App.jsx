@@ -3,9 +3,8 @@ import { Searchbar } from 'components/Searchbar/Searchbar';
 import { ImageGallery } from 'components/ImageGallery/ImageGallery';
 import { ImageGalleryItem } from 'components/ImageGalleryItem/ImageGalleryItem';
 export class App extends Component {
-  onSubmitForm = eventSubmit => {
-    eventSubmit.preventDefault();
-    console.log(eventSubmit.target);
+  onSubmitForm = word => {
+    console.log(word);
   };
 
   render() {

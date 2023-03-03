@@ -1,23 +1,37 @@
-import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 
-export const Searchbar = ({ onSubmitForm }) => (
-  <header className="searchbar">
-    <form className="form" onSubmit={onSubmitForm}>
-      <button type="submit" className="button">
-        <span className="button-label">Search</span>
-      </button>
+export class Searchbar extends Component {
+  state = {
+    searchWord: '',
+  };
+  onChangeHandel = event => {
+    const { name, value } = event.currentTarget;
+    this.setState({ [name]: value });
+  };
 
-      <input
-        className="input"
-        type="text"
-        name="search"
-        placeholder="Search images and photos"
-        required
-      />
-    </form>
-  </header>
-);
+  onSubmitForm = eventSubmit => {
+    eventSubmit.preventDefault();
+    this.props.onSubmitForm(this.state.searchWord);
+  };
 
-Searchbar.propTypes = {
-  onSubmitForm: PropTypes.func.isRequired,
-};
+  render() {
+    return (
+      <header className="searchbar">
+        <form className="form" onSubmit={this.onSubmitForm}>
+          <button type="submit" className="button">
+            <span className="button-label">Search</span>
+          </button>
+
+          <input
+            className="input"
+            type="text"
+            name="searchWord"
+            placeholder="Search images and photos"
+            required
+            onChange={this.onChangeHandel}
+          />
+        </form>
+      </header>
+    );
+  }
+}
