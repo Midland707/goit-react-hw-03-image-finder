@@ -1,7 +1,7 @@
 // import PropTypes from 'prop-types';
 
 export const ImageGalleryItem = () => (
-  <li className="gallery-item">
+  <li className="ImageGalleryItem">
     <img src="" alt="" />
   </li>
 );
