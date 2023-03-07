@@ -2,25 +2,31 @@ import React, { Component } from 'react';
 import { Searchbar } from 'components/Searchbar/Searchbar';
 import { ImageGallery } from 'components/ImageGallery/ImageGallery';
 import { ImageGalleryItem } from 'components/ImageGalleryItem/ImageGalleryItem';
+
+import * as ImageService from 'service/image-service';
 export class App extends Component {
+  state = {
+    query: '',
+    page: 1,
+  };
   onSubmitForm = word => {
-    console.log(word);
+    console.log('onSubmitForm =', word);
+    this.setState({ query: word });
+    // ImageService.getImages(word, this.state.page);
+  };
+
+  ApiQuery = () => {
+    ImageService.getImages(this.state.query, this.state.page);
   };
 
   render() {
     return (
-      <div slassName="App">
+      <div className="App">
         <Searchbar onSubmitForm={this.onSubmitForm} />
         <ImageGallery>
-          <ImageGalleryItem />
+          <ImageGalleryItem ApiQuery={this.ApiQuery} />
         </ImageGallery>
       </div>
     );
   }
 }
-
-// const BASE_URL = 'https://pixabay.com/api/';
-// const key = '32874218-f955783fbc8df841e2f172dbc';
-// const imgOnPage = 40;
-// let pageNumber = 1;
-// https://pixabay.com/api/?key=32874218-f955783fbc8df841e2f172dbc&q=SEARCH&image_type=photo&orientation=horizontal&safesearch=true

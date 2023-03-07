@@ -12,6 +12,7 @@ export class Searchbar extends Component {
   onSubmitForm = eventSubmit => {
     eventSubmit.preventDefault();
     this.props.onSubmitForm(this.state.searchWord);
+    this.setState({ searchWord: '' });
   };
 
   render() {
@@ -26,6 +27,7 @@ export class Searchbar extends Component {
             type="text"
             name="searchWord"
             autoComplete="off"
+            value={this.state.searchWord}
             autoFocus
             placeholder="Search images and photos"
             required
