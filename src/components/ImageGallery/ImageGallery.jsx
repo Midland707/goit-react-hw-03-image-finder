@@ -21,6 +21,7 @@ export class ImageGallery extends Component {
     if (prevProps.searchWord !== this.props.searchWord) {
       this.setState({
         query: this.props.searchWord,
+        images: [],
       });
     }
 
@@ -30,7 +31,10 @@ export class ImageGallery extends Component {
       ImageApi.getImages(query, page)
         .then(data => {
           if (!data.hits.length) {
-            this.setState({ isEmpty: true });
+            this.setState({
+              isEmpty: true,
+              showBtn: false,
+            });
             return;
           }
           console.log('data =', data);
@@ -52,12 +56,17 @@ export class ImageGallery extends Component {
         .finally(this.setState({ isLoading: false }));
     }
   }
-  scrollWin() {
-    window.scrollTo(0, 500);
-  }
+
+  // scrollToTop = () => {
+  //   const c = document.documentElement.scrollTop || document.body.scrollTop;
+
+  //   // if (c > 0) {
+  //   //   window.requestAnimationFrame(scrollToTop);
+  //   //   window.scrollTo(0, c - c / 5);
+  //   // }
+  // };
 
   onClickButton = () => {
-    this.scrollWin();
     this.setState(prevState => ({
       page: prevState.page + 1,
     }));
