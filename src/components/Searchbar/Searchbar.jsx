@@ -11,6 +11,10 @@ export class Searchbar extends Component {
 
   onSubmitForm = eventSubmit => {
     eventSubmit.preventDefault();
+    if (this.state.searchWord.trim() === '') {
+      alert('Ведіть назву фотографії');
+      return;
+    }
     this.props.onSubmitForm(this.state.searchWord);
     this.setState({ searchWord: '' });
   };

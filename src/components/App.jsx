@@ -4,19 +4,18 @@ import { ImageGallery } from 'components/ImageGallery/ImageGallery';
 
 export class App extends Component {
   state = {
-    search: '',
+    searchWord: '',
   };
 
   onSubmitForm = word => {
-    console.log('onSubmitForm =', word);
-    this.setState({ search: word });
+    this.setState({ searchWord: word });
   };
 
   render() {
     return (
       <div className="App">
         <Searchbar onSubmitForm={this.onSubmitForm} />
-        <ImageGallery searchWord={this.state.search} />
+        <ImageGallery searchWord={this.state.searchWord} />
       </div>
     );
   }
