@@ -2,6 +2,7 @@
 
 import { Component } from 'react';
 import { ImageGalleryItem } from 'components/ImageGalleryItem/ImageGalleryItem';
+import { Searchbar } from 'components/Searchbar/Searchbar';
 import * as ImageApi from 'components/ImageApi/ImageApi';
 import { Loader } from 'components/Loader/Loader';
 import { Button } from 'components/Button/Button';
@@ -13,18 +14,10 @@ export class ImageGallery extends Component {
     images: [],
     showBtn: false,
     isLoading: false,
-    isEmpty: false,
     error: '',
   };
 
   componentDidUpdate(prevProps, prevState) {
-    if (prevProps.searchWord !== this.props.searchWord) {
-      this.setState({
-        query: this.props.searchWord,
-        images: [],
-      });
-    }
-
     const { query, page } = this.state;
     if (query !== prevState.query || page !== prevState.page) {
       this.setState({ isLoading: true });
@@ -32,7 +25,6 @@ export class ImageGallery extends Component {
         .then(data => {
           if (!data.hits.length) {
             this.setState({
-              isEmpty: true,
               showBtn: false,
             });
             return;
@@ -42,7 +34,6 @@ export class ImageGallery extends Component {
             images: [...prevState.images, ...data.hits],
             showBtn: true,
           }));
-          // console.log('data.totalHits = ', data.totalHits);
           if (data.totalHits <= this.state.images.length + 12)
             this.setState({
               showBtn: false,
@@ -53,18 +44,20 @@ export class ImageGallery extends Component {
             error: error.message,
           });
         })
-        .finally(this.setState({ isLoading: false }));
+        .finally(
+          setTimeout(() => {
+            this.setState({ isLoading: false });
+          }, 500)
+        );
     }
   }
 
-  // scrollToTop = () => {
-  //   const c = document.documentElement.scrollTop || document.body.scrollTop;
-
-  //   // if (c > 0) {
-  //   //   window.requestAnimationFrame(scrollToTop);
-  //   //   window.scrollTo(0, c - c / 5);
-  //   // }
-  // };
+  onSubmitForm = word => {
+    this.setState({
+      query: word,
+      images: [],
+    });
+  };
 
   onClickButton = () => {
     this.setState(prevState => ({
@@ -75,6 +68,7 @@ export class ImageGallery extends Component {
   render() {
     return (
       <>
+        <Searchbar onSubmitForm={this.onSubmitForm} />
         <ImageGalleryItem images={this.state.images} />
         {this.state.isLoading && <Loader />}
         {this.state.showBtn && <Button onClickButton={this.onClickButton} />}

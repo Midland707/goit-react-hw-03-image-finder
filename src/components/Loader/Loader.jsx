@@ -1,17 +1,16 @@
-import { Blocks } from 'react-loader-spinner';
-import { Backdrop } from './Loader.styled';
+import { ThreeDots } from 'react-loader-spinner';
 
 export const Loader = () => {
   return (
-    <Backdrop>
-      <Blocks
-        visible={true}
-        height="80"
-        width="80"
-        ariaLabel="blocks-loading"
-        wrapperStyle={{}}
-        wrapperClass="blocks-wrapper"
-      />
-    </Backdrop>
+    <ThreeDots
+      height="80"
+      width="80"
+      radius="9"
+      color="#4fa94d"
+      ariaLabel="three-dots-loading"
+      wrapperStyle={{}}
+      wrapperClassName=""
+      visible={true}
+    />
   );
 };
