@@ -13,6 +13,15 @@ export class ImageGalleryItem extends Component {
       showModal: false,
     });
   };
+  componentDidUpdate(prevProps, prevState) {
+    document.addEventListener('keydown', this.onKeyEscPress, false);
+  }
+  onKeyEscPress = event => {
+    if (event.keyCode === 27)
+      this.setState({
+        showModal: false,
+      });
+  };
 
   render() {
     const { images } = this.props;
