@@ -10,6 +10,7 @@ export class ImageGalleryItem extends Component {
   state = {
     currentImage: '',
     showModal: false,
+    tag: '',
   };
 
   onClickClose = () => {
@@ -38,6 +39,7 @@ export class ImageGalleryItem extends Component {
                 this.setState({
                   showModal: true,
                   currentImage: largeImageURL,
+                  tag: tags,
                 });
               }}
               src={webformatURL}
@@ -48,6 +50,7 @@ export class ImageGalleryItem extends Component {
         {this.state.showModal && (
           <Modal
             image={this.state.currentImage}
+            tags={this.state.tag}
             onClickClose={this.onClickClose}
           />
         )}
