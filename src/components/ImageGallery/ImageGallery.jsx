@@ -7,6 +7,9 @@ import * as ImageApi from 'components/ImageApi/ImageApi';
 import { Loader } from 'components/Loader/Loader';
 import { Button } from 'components/Button/Button';
 
+var Scroll = require('react-scroll');
+var scroll = Scroll.animateScroll;
+
 export class ImageGallery extends Component {
   state = {
     query: '',
@@ -63,6 +66,7 @@ export class ImageGallery extends Component {
     this.setState(prevState => ({
       page: prevState.page + 1,
     }));
+    scroll.scrollToBottom();
   };
 
   render() {
