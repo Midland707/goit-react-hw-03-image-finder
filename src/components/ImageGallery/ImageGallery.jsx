@@ -1,5 +1,3 @@
-// import PropTypes from 'prop-types';
-
 import { Component } from 'react';
 import { ImageGalleryItem } from 'components/ImageGalleryItem/ImageGalleryItem';
 import { Searchbar } from 'components/Searchbar/Searchbar';
