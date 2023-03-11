@@ -27,11 +27,18 @@ export class App extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const { query, page } = this.state;
+    const { images, query, page } = this.state;
     if (query !== prevState.query || page !== prevState.page) {
       this.setState({
         isLoading: true,
       });
+    }
+
+    if (
+      query !== prevState.query ||
+      page !== prevState.page ||
+      !images.length
+    ) {
       ImageApi.getImages(query, page)
         .then(data => {
           if (!data.hits.length) {
@@ -41,10 +48,16 @@ export class App extends Component {
             return;
           }
           // console.log('data =', data);
-          this.setState(prevState => ({
-            images: [...prevState.images, ...data.hits],
-            showBtn: true,
-          }));
+          if (!images.length) {
+            this.setState(prevState => ({
+              images: [...data.hits],
+              showBtn: true,
+            }));
+          } else
+            this.setState(prevState => ({
+              images: [...prevState.images, ...data.hits],
+              showBtn: true,
+            }));
           if (data.totalHits <= this.state.images.length + 12)
             this.setState({
               showBtn: false,
@@ -71,6 +84,7 @@ export class App extends Component {
     this.setState({
       query: word,
       images: [],
+      page: 1,
     });
   };
 
