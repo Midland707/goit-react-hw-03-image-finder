@@ -5,7 +5,15 @@ import { ImageGalleryItem } from 'components/ImageGalleryItem/ImageGalleryItem';
 export const ImageGallery = ({ images, onClickImage }) => {
   return (
     <ImgGallery>
-      <ImageGalleryItem images={images} onClickImage={onClickImage} />
+      {images.map(({ id, webformatURL, tags, largeImageURL }) => (
+        <ImageGalleryItem
+          key={id}
+          webformatURL={webformatURL}
+          tags={tags}
+          largeImageURL={largeImageURL}
+          onClickImage={onClickImage}
+        />
+      ))}
     </ImgGallery>
   );
 };

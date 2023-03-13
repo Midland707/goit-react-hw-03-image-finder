@@ -77,7 +77,7 @@ export class App extends Component {
   }
 
   componentWillUnmount() {
-    document.addEventListener('keydown', this.onKeyEscPress, false);
+    document.removeEventListener('keydown', this.onKeyEscPress, false);
   }
 
   onSubmitForm = word => {
@@ -120,12 +120,6 @@ export class App extends Component {
     return (
       <Wrapper>
         <Searchbar onSubmitForm={this.onSubmitForm} />
-        <ImageGallery
-          images={this.state.images}
-          onClickImage={this.onClickImage}
-        />
-        {this.state.isLoading && <Loader />}
-        {this.state.showBtn && <Button onClickButton={this.onClickButton} />}
         {this.state.showModal && (
           <Modal
             image={this.state.largeImageURL}
@@ -133,6 +127,12 @@ export class App extends Component {
             onClickClose={this.onClickClose}
           />
         )}
+        <ImageGallery
+          images={this.state.images}
+          onClickImage={this.onClickImage}
+        />
+        {this.state.isLoading && <Loader />}
+        {this.state.showBtn && <Button onClickButton={this.onClickButton} />}
       </Wrapper>
     );
   }
